@@ -19,9 +19,13 @@ logging.info(f"Script started. Python version: {sys.version}")
 config = configparser.ConfigParser()
 config.read(os.path.expanduser('~/Library/Application Support/MailMate/Bundles/GPTAssistant.mmbundle/config.ini'))
 
-API_PROVIDER = config['DEFAULT']['ApiProvider']
-API_KEY = config['DEFAULT']['ApiKey']
-MODEL = config['DEFAULT']['Model']
+# Environment variables take priority over config file
+API_PROVIDER = os.environ.get('GPT_ASSIST_PROVIDER') or config['DEFAULT'].get('ApiProvider', 'anthropic')
+API_KEY = os.environ.get('GPT_ASSIST_API_KEY') or config['DEFAULT'].get('ApiKey')
+MODEL = os.environ.get('GPT_ASSIST_MODEL') or config['DEFAULT'].get('Model')
+
+if not API_KEY:
+    raise ValueError("API key not found. Set GPT_ASSIST_API_KEY environment variable or ApiKey in config.ini")
 
 def log_error(message):
     logging.error(message)
