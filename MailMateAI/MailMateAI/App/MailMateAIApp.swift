@@ -18,6 +18,10 @@ struct MailMateAIApp: App {
             MenuBarView()
                 .environmentObject(appState)
                 .environmentObject(settingsManager)
+                .onOpenURL { url in
+                    urlHandler.appState = appState
+                    urlHandler.handle(url: url)
+                }
         } label: {
             Image(systemName: appState.isProcessing ? "envelope.badge.clock" :
                   (appState.lastError != nil ? "envelope.badge.exclamationmark" : "envelope"))
@@ -37,15 +41,5 @@ struct MailMateAIApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-    }
-}
-
-// Add this extension to handle URL scheme
-extension MailMateAIApp {
-    func handleURL(_ url: URL) {
-        Task { @MainActor in
-            urlHandler.appState = appState
-            urlHandler.handle(url: url)
-        }
     }
 }
