@@ -8,11 +8,6 @@ struct MailMateAIApp: App {
     @StateObject private var settingsManager = SettingsManager.shared
     @Environment(\.openWindow) private var openWindow
 
-    init() {
-        // Request notification permissions
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
-    }
-
     var body: some Scene {
         MenuBarExtra {
             MenuBarView()
@@ -21,6 +16,10 @@ struct MailMateAIApp: App {
                 .onOpenURL { url in
                     urlHandler.appState = appState
                     urlHandler.handle(url: url)
+                }
+                .task {
+                    // Request notification permissions after app is ready
+                    try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
                 }
         } label: {
             Image(systemName: appState.isProcessing ? "envelope.badge.clock" :
