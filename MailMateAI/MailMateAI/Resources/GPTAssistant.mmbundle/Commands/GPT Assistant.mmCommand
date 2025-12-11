@@ -1,0 +1,8 @@
+{
+    name = "Compose with GPT";
+    uuid = "90978F3C-A763-4BB4-981E-50CAE2C28F63";
+    saveForEditing = 1;
+    script = "#!/bin/bash\n/opt/homebrew/bin/python3 \"${MM_BUNDLE_SUPPORT}/bin/gpt_assist.py\"";
+    keyEquivalent = "^C";
+    environment = "PYTHONIOENCODING=utf-8";
+}
