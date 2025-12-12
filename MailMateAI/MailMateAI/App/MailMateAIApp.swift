@@ -19,7 +19,7 @@ struct MailMateAIApp: App {
                 }
                 .task {
                     // Request notification permissions after app is ready
-                    try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
+                    _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
                 }
         } label: {
             Image(systemName: appState.isProcessing ? "envelope.badge.clock" :
