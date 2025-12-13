@@ -106,30 +106,16 @@ def call_anthropic_api(prompt):
     return response_data['content'][0]['text'].strip()
 
 def call_openai_api(prompt):
-    url = "https://api.openai.com/v1/responses"
+    url = "https://api.openai.com/v1/chat/completions"
     data = json.dumps({
         "model": MODEL,
-        "input": [
+        "messages": [
             {
                 "role": "user",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": prompt
-                    }
-                ]
+                "content": prompt
             }
         ],
-        "text": {
-            "format": {
-                "type": "text"
-            }
-        },
-        "reasoning": {
-            "effort": "medium",
-            "summary": "auto"
-        },
-        "store": False
+        "max_tokens": 1000
     }).encode('utf-8')
 
     req = urllib.request.Request(url, data=data, method='POST')
@@ -142,14 +128,7 @@ def call_openai_api(prompt):
 
     logging.debug(f"OpenAI response: {json.dumps(response_data, indent=2)}")
 
-    # Extract text from the response
-    for item in response_data.get('output', []):
-        if item.get('type') == 'message':
-            for content in item.get('content', []):
-                if content.get('type') == 'output_text':
-                    return content.get('text', '').strip()
-
-    raise ValueError("No text output found in response")
+    return response_data['choices'][0]['message']['content'].strip()
 
 try:
     # Notify app that processing has started
