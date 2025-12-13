@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct MenuBarView: View {
     @EnvironmentObject var appState: AppState
@@ -24,6 +25,7 @@ struct MenuBarView: View {
             // Menu items
             Group {
                 Button {
+                    NSApp.activate(ignoringOtherApps: true)
                     openSettings()
                 } label: {
                     Label("Settings...", systemImage: "gear")
