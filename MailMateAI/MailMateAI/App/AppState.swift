@@ -20,9 +20,9 @@ class AppState: ObservableObject {
         }
     }
 
-    /// Check if there's already a valid API key in Keychain or config.ini
+    /// Check if there's already a valid API key in config file or config.ini
     private static func detectExistingConfiguration() -> Bool {
-        // Check Keychain first
+        // Check ~/.mailmateai/config.json first
         if let apiKey = KeychainManager.apiKey, !apiKey.isEmpty {
             return true
         }

@@ -14,7 +14,7 @@ struct CompletionView: View {
                 StatusRow(
                     icon: "checkmark.circle.fill",
                     color: .green,
-                    text: "API key saved to Keychain"
+                    text: "Configuration saved"
                 )
 
                 StatusRow(

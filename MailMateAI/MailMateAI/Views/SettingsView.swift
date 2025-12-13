@@ -126,7 +126,7 @@ struct SettingsView: View {
         .alert("Saved", isPresented: $showingSaveSuccess) {
             Button("OK") { }
         } message: {
-            Text("API key saved to Keychain.")
+            Text("Configuration saved.")
         }
         .alert("Error", isPresented: $showingSaveError) {
             Button("OK") { }

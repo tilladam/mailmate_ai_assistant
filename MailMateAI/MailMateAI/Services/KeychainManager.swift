@@ -1,92 +1,64 @@
 import Foundation
-import Security
 
-enum KeychainError: Error {
-    case itemNotFound
-    case duplicateItem
-    case unexpectedStatus(OSStatus)
-}
-
+/// Stores configuration in ~/.mailmateai/config.json
 struct KeychainManager {
-    private static let service = "MailMateAI"
+    private static let configDir = ("~/.mailmateai" as NSString).expandingTildeInPath
+    private static let configFile = ("~/.mailmateai/config.json" as NSString).expandingTildeInPath
 
-    static func save(key: String, value: String) throws {
-        guard let data = value.data(using: .utf8) else { return }
-
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: key,
-            kSecValueData as String: data
-        ]
-
-        // Delete existing item first
-        SecItemDelete(query as CFDictionary)
-
-        let status = SecItemAdd(query as CFDictionary, nil)
-
-        guard status == errSecSuccess else {
-            throw KeychainError.unexpectedStatus(status)
-        }
+    private struct Config: Codable {
+        var apiKey: String?
+        var provider: String?
+        var model: String?
     }
 
-    static func get(key: String) -> String? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: key,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-
-        guard status == errSecSuccess,
-              let data = result as? Data,
-              let string = String(data: data, encoding: .utf8) else {
-            return nil
+    private static func loadConfig() -> Config {
+        guard FileManager.default.fileExists(atPath: configFile),
+              let data = try? Data(contentsOf: URL(fileURLWithPath: configFile)),
+              let config = try? JSONDecoder().decode(Config.self, from: data) else {
+            return Config()
         }
-
-        return string
+        return config
     }
 
-    static func delete(key: String) throws {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: key
-        ]
-
-        let status = SecItemDelete(query as CFDictionary)
-
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeychainError.unexpectedStatus(status)
+    private static func saveConfig(_ config: Config) throws {
+        // Create directory if needed
+        if !FileManager.default.fileExists(atPath: configDir) {
+            try FileManager.default.createDirectory(atPath: configDir, withIntermediateDirectories: true)
         }
+
+        let data = try JSONEncoder().encode(config)
+        try data.write(to: URL(fileURLWithPath: configFile))
     }
 
-    // Convenience methods for our specific keys
+    // MARK: - Public API (same interface as before)
+
     static var apiKey: String? {
-        get { get(key: "api_key") }
+        loadConfig().apiKey
     }
 
     static func setApiKey(_ value: String) throws {
-        try save(key: "api_key", value: value)
+        var config = loadConfig()
+        config.apiKey = value
+        try saveConfig(config)
     }
 
     static var provider: String? {
-        get { get(key: "provider") }
+        loadConfig().provider
     }
 
     static func setProvider(_ value: String) throws {
-        try save(key: "provider", value: value)
+        var config = loadConfig()
+        config.provider = value
+        try saveConfig(config)
     }
 
     static var model: String? {
-        get { get(key: "model") }
+        loadConfig().model
     }
 
     static func setModel(_ value: String) throws {
-        try save(key: "model", value: value)
+        var config = loadConfig()
+        config.model = value
+        try saveConfig(config)
     }
 }

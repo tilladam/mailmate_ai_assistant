@@ -37,7 +37,7 @@ struct ConfigurationView: View {
                 SecureField("Enter your API key", text: $apiKey)
                     .textFieldStyle(.roundedBorder)
 
-                Text("Stored securely in macOS Keychain")
+                Text("Stored in ~/.mailmateai/config.json")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -87,7 +87,7 @@ struct ConfigurationView: View {
         .alert("Configuration Error", isPresented: $showingApiKeyError) {
             Button("OK") { }
         } message: {
-            Text("Failed to save API key to Keychain. Please try again.")
+            Text("Failed to save configuration. Please try again.")
         }
     }
 

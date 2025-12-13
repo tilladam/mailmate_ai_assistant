@@ -29,22 +29,19 @@ def notify_app(status, message=None):
     except Exception as e:
         logging.warning(f"Failed to notify app: {e}")
 
-def get_keychain_value(service, account):
-    """Retrieve value from macOS Keychain."""
+def get_config_value(key):
+    """Retrieve value from ~/.mailmateai/config.json."""
+    config_file = os.path.expanduser("~/.mailmateai/config.json")
     try:
-        result = subprocess.run(
-            ["security", "find-generic-password", "-s", service, "-a", account, "-w"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        value = result.stdout.strip()
-        return value if value else None
-    except subprocess.CalledProcessError:
-        logging.debug(f"Keychain value not found for service={service}, account={account}")
+        if os.path.exists(config_file):
+            with open(config_file, 'r') as f:
+                config = json.load(f)
+                value = config.get(key)
+                return value if value else None
+        logging.debug(f"Config file not found: {config_file}")
         return None
     except Exception as e:
-        logging.warning(f"Error accessing Keychain: {e}")
+        logging.warning(f"Error reading config file: {e}")
         return None
 
 # Load configuration
@@ -52,23 +49,23 @@ config = configparser.ConfigParser()
 script_dir = os.path.dirname(os.path.abspath(__file__))
 config.read(os.path.join(script_dir, 'config.ini'))
 
-# Try Keychain first, then environment variables, then config file
-# Priority: Keychain > Environment > Config file
+# Try config file first, then environment variables, then config.ini
+# Priority: ~/.mailmateai/config.json > Environment > config.ini
 API_PROVIDER = (
-    get_keychain_value("MailMateAI", "provider") or
+    get_config_value("provider") or
     os.environ.get('GPT_ASSIST_PROVIDER') or
     config['DEFAULT'].get('ApiProvider', 'anthropic')
 )
 
-# Read API key and model from provider-specific section (for backwards compatibility)
+# Read API key and model from provider-specific section (for backwards compatibility with config.ini)
 provider_section = 'OPENAI' if API_PROVIDER == 'openai' else 'ANTHROPIC'
 API_KEY = (
-    get_keychain_value("MailMateAI", "api_key") or
+    get_config_value("apiKey") or
     os.environ.get('GPT_ASSIST_API_KEY') or
     config[provider_section].get('ApiKey')
 )
 MODEL = (
-    get_keychain_value("MailMateAI", "model") or
+    get_config_value("model") or
     os.environ.get('GPT_ASSIST_MODEL') or
     config[provider_section].get('Model')
 )
