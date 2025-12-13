@@ -5,6 +5,7 @@ class AppState: ObservableObject {
     @Published var isProcessing = false
     @Published var lastError: AppError?
     @Published var hasCompletedSetup: Bool
+    var hasCheckedSetup = false
 
     init() {
         // Check if setup was previously completed

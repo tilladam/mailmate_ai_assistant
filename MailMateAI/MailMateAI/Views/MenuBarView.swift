@@ -68,8 +68,11 @@ struct MenuBarView: View {
                 ErrorDetailView(error: error)
             }
         }
-        .onAppear {
-            // Only show setup if not completed AND no valid API key exists
+        .task {
+            // Only check setup once per app launch, not on every menu appear
+            guard !appState.hasCheckedSetup else { return }
+            appState.hasCheckedSetup = true
+
             if !appState.hasCompletedSetup {
                 // Double-check: if there's already an API key, mark setup complete
                 if let apiKey = KeychainManager.apiKey, !apiKey.isEmpty {
