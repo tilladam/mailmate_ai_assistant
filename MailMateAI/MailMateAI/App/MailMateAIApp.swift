@@ -40,6 +40,6 @@ struct MailMateAIApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-        .defaultLaunchBehavior(.suppressed)
+        .handlesExternalEvents(matching: [])
     }
 }

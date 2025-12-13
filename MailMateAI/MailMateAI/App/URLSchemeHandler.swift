@@ -16,6 +16,8 @@ class URLSchemeHandler: ObservableObject {
         switch status {
         case "started":
             appState?.setProcessing(true)
+            // Dismiss any open windows when processing starts
+            NSApp.windows.filter { $0.title == "Setup" }.forEach { $0.close() }
 
         case "finished":
             appState?.setProcessing(false)

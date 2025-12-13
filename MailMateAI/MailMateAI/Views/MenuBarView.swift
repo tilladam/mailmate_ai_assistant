@@ -69,8 +69,8 @@ struct MenuBarView: View {
             }
         }
         .task {
-            // Only check setup once per app launch, not on every menu appear
-            guard !appState.hasCheckedSetup else { return }
+            // Only check setup once per app launch, not during processing
+            guard !appState.hasCheckedSetup && !appState.isProcessing else { return }
             appState.hasCheckedSetup = true
 
             if !appState.hasCompletedSetup {
