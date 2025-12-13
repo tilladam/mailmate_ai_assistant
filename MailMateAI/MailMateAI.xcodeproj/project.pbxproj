@@ -7,20 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1000001 /* MailMateAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001; };
-		A1000002 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002; };
-		A1000003 /* URLSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003; };
-		A1000004 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000004; };
-		A1000005 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000005; };
-		A1000006 /* BundleInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000006; };
-		A1000007 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000007; };
-		A1000008 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000008; };
-		A1000009 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000009; };
-		A100000A /* SetupWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000A; };
-		A100000B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000B; };
-		A100000C /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000C; };
-		A100000D /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000D; };
-		A100000E /* GPTAssistant.mmbundle in Resources */ = {isa = PBXBuildFile; fileRef = A200000E; };
+		A1000001 /* MailMateAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* MailMateAIApp.swift */; };
+		A1000002 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002 /* AppState.swift */; };
+		A1000003 /* URLSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003 /* URLSchemeHandler.swift */; };
+		A1000004 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000004 /* KeychainManager.swift */; };
+		A1000005 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000005 /* SettingsManager.swift */; };
+		A1000006 /* BundleInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000006 /* BundleInstaller.swift */; };
+		A1000007 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000007 /* MenuBarView.swift */; };
+		A1000008 /* ErrorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000008 /* ErrorDetailView.swift */; };
+		A1000009 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000009 /* SettingsView.swift */; };
+		A100000A /* SetupWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000A /* SetupWizardView.swift */; };
+		A100000B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000B /* WelcomeView.swift */; };
+		A100000C /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000C /* ConfigurationView.swift */; };
+		A100000D /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000D /* CompletionView.swift */; };
+		A100000E /* GPTAssistant.mmbundle in Resources */ = {isa = PBXBuildFile; fileRef = A200000E /* GPTAssistant.mmbundle */; };
+		A100000F /* ThinkingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012 /* ThinkingPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		A200000F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2000010 /* MailMateAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MailMateAI.entitlements; sourceTree = "<group>"; };
 		A2000011 /* MailMateAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailMateAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2000012 /* ThinkingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				A2000007 /* MenuBarView.swift */,
 				A2000008 /* ErrorDetailView.swift */,
 				A2000009 /* SettingsView.swift */,
+				A2000012 /* ThinkingPanel.swift */,
 				A4000008 /* SetupWizard */,
 			);
 			path = Views;
@@ -215,6 +218,7 @@
 				A100000B /* WelcomeView.swift in Sources */,
 				A100000C /* ConfigurationView.swift in Sources */,
 				A100000D /* CompletionView.swift in Sources */,
+				A100000F /* ThinkingPanel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,9 +345,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MailMateAI/MailMateAI.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SG5LTCEH7L;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MailMateAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -364,9 +370,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MailMateAI/MailMateAI.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SG5LTCEH7L;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MailMateAI/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
