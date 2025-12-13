@@ -69,8 +69,14 @@ struct MenuBarView: View {
             }
         }
         .onAppear {
+            // Only show setup if not completed AND no valid API key exists
             if !appState.hasCompletedSetup {
-                openWindow(id: "setup")
+                // Double-check: if there's already an API key, mark setup complete
+                if let apiKey = KeychainManager.apiKey, !apiKey.isEmpty {
+                    appState.completeSetup()
+                } else {
+                    openWindow(id: "setup")
+                }
             }
         }
     }
