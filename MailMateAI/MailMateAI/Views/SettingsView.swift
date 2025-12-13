@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var selectedModel: String = ""
     @State private var showingSaveSuccess = false
     @State private var showingSaveError = false
+    @State private var customPrompt: String = ""
 
     var body: some View {
         Form {
@@ -82,6 +83,37 @@ struct SettingsView: View {
                 Text("Model")
             }
 
+            // Prompt Section
+            Section {
+                TextEditor(text: $customPrompt)
+                    .font(.system(size: 11, design: .monospaced))
+                    .frame(height: 150)
+                    .scrollContentBackground(.hidden)
+                    .background(Color(nsColor: .textBackgroundColor))
+                    .cornerRadius(4)
+
+                HStack {
+                    Button("Reset to Default") {
+                        customPrompt = KeychainManager.defaultPrompt
+                        try? KeychainManager.setCustomPrompt("")
+                    }
+                    .buttonStyle(.bordered)
+
+                    Spacer()
+
+                    Button("Save Prompt") {
+                        try? KeychainManager.setCustomPrompt(customPrompt)
+                        showingSaveSuccess = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            } header: {
+                Text("AI Prompt")
+            } footer: {
+                Text("Customize how the AI rewrites your emails. Use {email_content} as placeholder for the email text.")
+                    .font(.caption)
+            }
+
             // General Section
             Section {
                 Toggle("Launch at login", isOn: $settingsManager.launchAtLogin)
@@ -119,7 +151,7 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 450, height: 500)
+        .frame(width: 450, height: 700)
         .onAppear {
             loadCurrentSettings()
         }
@@ -143,6 +175,7 @@ struct SettingsView: View {
 
         apiKey = KeychainManager.apiKey ?? ""
         selectedModel = KeychainManager.model ?? selectedProvider.defaultModels.first?.id ?? ""
+        customPrompt = KeychainManager.customPrompt ?? KeychainManager.defaultPrompt
     }
 
     private func saveApiKey() {

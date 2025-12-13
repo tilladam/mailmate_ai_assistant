@@ -9,6 +9,7 @@ struct KeychainManager {
         var apiKey: String?
         var provider: String?
         var model: String?
+        var customPrompt: String?
     }
 
     private static func loadConfig() -> Config {
@@ -61,4 +62,27 @@ struct KeychainManager {
         config.model = value
         try saveConfig(config)
     }
+
+    static var customPrompt: String? {
+        loadConfig().customPrompt
+    }
+
+    static func setCustomPrompt(_ value: String) throws {
+        var config = loadConfig()
+        config.customPrompt = value.isEmpty ? nil : value
+        try saveConfig(config)
+    }
+
+    static let defaultPrompt = """
+Your task is to rewrite email text so it is clearer, more concise, and more professional, while maintaining the original message and intent.
+
+Guidelines:
+- Use simple, direct language
+- Ensure a professionally friendly tone
+- Use active voice where appropriate
+- Remove unnecessary repetition
+- Correct any grammar or spelling errors
+
+Output ONLY the revised email text, nothing else.
+"""
 }

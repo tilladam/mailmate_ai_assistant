@@ -19,14 +19,18 @@ class URLSchemeHandler: ObservableObject {
             appState?.setProcessing(true)
             // Dismiss any open windows when processing starts
             NSApp.windows.filter { $0.title == "Setup" }.forEach { $0.close() }
+            // Show thinking indicator
+            ThinkingPanelController.shared.show()
 
         case "finished":
             appState?.setProcessing(false)
             appState?.setError(nil)
+            ThinkingPanelController.shared.hide()
             showNotification(title: "Draft Ready", body: "Check MailMate for your new draft")
 
         case "error":
             appState?.setProcessing(false)
+            ThinkingPanelController.shared.hide()
             let errorInfo = parseError(message: message)
             appState?.setError(errorInfo)
             showNotification(title: "Failed to Generate Draft", body: "Click for details")

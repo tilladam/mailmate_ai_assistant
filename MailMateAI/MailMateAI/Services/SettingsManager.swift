@@ -18,12 +18,14 @@ enum AIProvider: String, CaseIterable, Identifiable {
         switch self {
         case .anthropic:
             return [
+                ModelOption(id: "claude-sonnet-4-5-20250929", name: "Claude 4.5 Sonnet"),
                 ModelOption(id: "claude-sonnet-4-20250514", name: "Claude Sonnet 4"),
                 ModelOption(id: "claude-opus-4-20250514", name: "Claude Opus 4"),
                 ModelOption(id: "claude-3-5-haiku-20241022", name: "Claude Haiku 3.5")
             ]
         case .openai:
             return [
+                ModelOption(id: "gpt-5-nano", name: "GPT-5 Nano"),
                 ModelOption(id: "gpt-4o", name: "GPT-4o"),
                 ModelOption(id: "gpt-4o-mini", name: "GPT-4o mini"),
                 ModelOption(id: "gpt-4-turbo", name: "GPT-4 Turbo")
