@@ -82,12 +82,46 @@ struct ConfigurationView: View {
         }
         .padding(30)
         .onAppear {
-            selectedModel = selectedProvider.defaultModels.first?.id ?? ""
+            loadExistingConfiguration()
         }
         .alert("Configuration Error", isPresented: $showingApiKeyError) {
             Button("OK") { }
         } message: {
             Text("Failed to save API key to Keychain. Please try again.")
+        }
+    }
+
+    private func loadExistingConfiguration() {
+        // Load provider
+        if let providerString = KeychainManager.provider,
+           let provider = AIProvider(rawValue: providerString) {
+            selectedProvider = provider
+        }
+
+        // Load API key
+        if let existingKey = KeychainManager.apiKey {
+            apiKey = existingKey
+        }
+
+        // Load model
+        if let existingModel = KeychainManager.model {
+            // Check if it's a custom model (not in default list)
+            let isDefaultModel = selectedProvider.defaultModels.contains { $0.id == existingModel }
+            if isDefaultModel {
+                selectedModel = existingModel
+            } else {
+                useCustomModel = true
+                customModelId = existingModel
+                selectedModel = selectedProvider.defaultModels.first?.id ?? ""
+            }
+        } else {
+            selectedModel = selectedProvider.defaultModels.first?.id ?? ""
+        }
+
+        // Load custom model settings
+        useCustomModel = SettingsManager.shared.useCustomModel
+        if useCustomModel {
+            customModelId = SettingsManager.shared.customModelId
         }
     }
 
