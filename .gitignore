@@ -6,3 +6,9 @@ config.ini
 
 # Logs
 *.log
+
+# Documentation
+/docs/
+
+# Worktrees
+.worktrees/
