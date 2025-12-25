@@ -58,7 +58,12 @@ API_PROVIDER = (
 )
 
 # Read API key and model from provider-specific section (for backwards compatibility with config.ini)
-provider_section = 'OPENAI' if API_PROVIDER == 'openai' else 'ANTHROPIC'
+if API_PROVIDER == 'openai':
+    provider_section = 'OPENAI'
+elif API_PROVIDER == 'gemini':
+    provider_section = 'GEMINI'
+else:
+    provider_section = 'ANTHROPIC'
 API_KEY = (
     get_config_value("apiKey") or
     os.environ.get('GPT_ASSIST_API_KEY') or
@@ -92,6 +97,8 @@ def call_api(prompt):
         return call_anthropic_api(prompt)
     elif API_PROVIDER == 'openai':
         return call_openai_api(prompt)
+    elif API_PROVIDER == 'gemini':
+        return call_gemini_api(prompt)
     else:
         raise ValueError(f"Unsupported API provider: {API_PROVIDER}")
 
@@ -140,6 +147,32 @@ def call_openai_api(prompt):
     logging.debug(f"OpenAI response: {json.dumps(response_data, indent=2)}")
 
     return response_data['choices'][0]['message']['content'].strip()
+
+def call_gemini_api(prompt):
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}"
+    data = json.dumps({
+        "contents": [
+            {
+                "parts": [
+                    {"text": prompt}
+                ]
+            }
+        ],
+        "generationConfig": {
+            "maxOutputTokens": 1000
+        }
+    }).encode('utf-8')
+
+    req = urllib.request.Request(url, data=data, method='POST')
+    req.add_header('Content-Type', 'application/json')
+
+    context = ssl._create_unverified_context()
+    with urllib.request.urlopen(req, context=context) as response:
+        response_data = json.loads(response.read().decode('utf-8'))
+
+    logging.debug(f"Gemini response: {json.dumps(response_data, indent=2)}")
+
+    return response_data['candidates'][0]['content']['parts'][0]['text'].strip()
 
 try:
     # Notify app that processing has started

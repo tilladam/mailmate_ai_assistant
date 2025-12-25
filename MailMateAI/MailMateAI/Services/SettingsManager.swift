@@ -4,6 +4,7 @@ import ServiceManagement
 enum AIProvider: String, CaseIterable, Identifiable {
     case anthropic = "anthropic"
     case openai = "openai"
+    case gemini = "gemini"
 
     var id: String { rawValue }
 
@@ -11,6 +12,7 @@ enum AIProvider: String, CaseIterable, Identifiable {
         switch self {
         case .anthropic: return "Anthropic"
         case .openai: return "OpenAI"
+        case .gemini: return "Google Gemini"
         }
     }
 
@@ -29,6 +31,13 @@ enum AIProvider: String, CaseIterable, Identifiable {
                 ModelOption(id: "gpt-4o", name: "GPT-4o"),
                 ModelOption(id: "gpt-4o-mini", name: "GPT-4o mini"),
                 ModelOption(id: "gpt-4-turbo", name: "GPT-4 Turbo")
+            ]
+        case .gemini:
+            return [
+                ModelOption(id: "gemini-3-pro-preview", name: "Gemini 3 Pro"),
+                ModelOption(id: "gemini-3-flash-preview", name: "Gemini 3 Flash"),
+                ModelOption(id: "gemini-2.5-flash", name: "Gemini 2.5 Flash"),
+                ModelOption(id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash Lite"),
             ]
         }
     }

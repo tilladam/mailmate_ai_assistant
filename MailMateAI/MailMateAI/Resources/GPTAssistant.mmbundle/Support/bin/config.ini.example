@@ -1,5 +1,5 @@
 [DEFAULT]
-# Set to 'openai' or 'anthropic'
+# Set to 'openai', 'anthropic', or 'gemini'
 ApiProvider = anthropic
 
 [OPENAI]
@@ -9,3 +9,7 @@ Model = gpt-4o-mini
 [ANTHROPIC]
 ApiKey = YOUR_ANTHROPIC_API_KEY_HERE
 Model = claude-sonnet-4-20250514
+
+[GEMINI]
+ApiKey = YOUR_GEMINI_API_KEY_HERE
+Model = gemini-2.5-flash
