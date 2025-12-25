@@ -118,6 +118,8 @@ def call_anthropic_api(prompt):
     req.add_header('anthropic-version', '2023-06-01')
 
     context = ssl._create_unverified_context()
+    if not context:
+        raise RuntimeError("Failed to create SSL context")
     with urllib.request.urlopen(req, context=context) as response:
         response_data = json.loads(response.read().decode('utf-8'))
 
@@ -141,6 +143,8 @@ def call_openai_api(prompt):
     req.add_header('Authorization', f'Bearer {API_KEY}')
 
     context = ssl._create_unverified_context()
+    if not context:
+        raise RuntimeError("Failed to create SSL context")
     with urllib.request.urlopen(req, context=context) as response:
         response_data = json.loads(response.read().decode('utf-8'))
 
@@ -167,6 +171,9 @@ def call_gemini_api(prompt):
     req.add_header('Content-Type', 'application/json')
 
     context = ssl._create_unverified_context()
+    if not context:
+        raise RuntimeError("Failed to create SSL context")
+    logging.debug(f"Request URL: {req.full_url}")
     with urllib.request.urlopen(req, context=context) as response:
         response_data = json.loads(response.read().decode('utf-8'))
 
@@ -209,6 +216,7 @@ Email draft to improve:
 </email draft>
 
 Output ONLY the improved email text:"""
+    #logging.debug(f"Prompt: {repr(prompt[:500])}")
 
     # Call the appropriate API
     generated_text = call_api(prompt)
