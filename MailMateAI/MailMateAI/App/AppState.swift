@@ -29,7 +29,7 @@ class AppState: ObservableObject {
         }
 
         // Check config.ini in the installed bundle location
-        let configPath = ("~/Library/Application Support/MailMate/Bundles/GPTAssistant.mmbundle/Support/bin/config.ini" as NSString).expandingTildeInPath
+        let configPath = ("~/Library/Application Support/MailMate/Bundles/AIAssistant.mmbundle/Support/bin/config.ini" as NSString).expandingTildeInPath
         if FileManager.default.fileExists(atPath: configPath) {
             // Try to read and check if it has an API key
             if let contents = try? String(contentsOfFile: configPath, encoding: .utf8) {

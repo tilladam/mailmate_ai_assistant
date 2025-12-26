@@ -8,7 +8,7 @@ enum BundleInstallerError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .bundleNotFound:
-            return "Could not find the GPTAssistant bundle in app resources"
+            return "Could not find the AIAssistant bundle in app resources"
         case .installationFailed(let reason):
             return "Failed to install bundle: \(reason)"
         case .mailmateNotInstalled:
@@ -18,7 +18,7 @@ enum BundleInstallerError: Error, LocalizedError {
 }
 
 struct BundleInstaller {
-    static let bundleName = "GPTAssistant.mmbundle"
+    static let bundleName = "AIAssistant.mmbundle"
     static let mailmateBundlesPath = "~/Library/Application Support/MailMate/Bundles"
         .expandingTildeInPath
 
@@ -33,7 +33,8 @@ struct BundleInstaller {
     static var bundleVersion: String? {
         let plistPath = (installedBundlePath as NSString).appendingPathComponent("info.plist")
         guard let plist = NSDictionary(contentsOfFile: plistPath),
-              let version = plist["CFBundleVersion"] as? String else {
+            let version = plist["CFBundleVersion"] as? String
+        else {
             return nil
         }
         return version
@@ -41,7 +42,8 @@ struct BundleInstaller {
 
     static func install() throws {
         // Find bundle in app resources
-        guard let sourcePath = Bundle.main.path(forResource: "GPTAssistant", ofType: "mmbundle") else {
+        guard let sourcePath = Bundle.main.path(forResource: "GPTAssistant", ofType: "mmbundle")
+        else {
             throw BundleInstallerError.bundleNotFound
         }
 

@@ -1,7 +1,7 @@
 { "contactEmailRot13" = "zvpx@zvpxavrcbgu.pbz";
-contactName = "GPTAssistant";
+contactName = "AIAssistant";
 description = "This MailMate bundle integrates AI-powered email composition assistance into MailMate, supporting both Anthropic's Claude and OpenAI's GPT models.";
-name = "GPTAssistant";
+name = "AIAssistant";
 uuid = "FA9B809E-6333-46D1-A047-C77FB487D6B7";
 CFBundleVersion = "1.0.0";
 }
