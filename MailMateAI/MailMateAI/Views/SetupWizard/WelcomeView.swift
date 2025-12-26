@@ -21,10 +21,12 @@ struct WelcomeView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Text("This app integrates Claude and GPT with MailMate's composer to help you write better emails faster.")
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 40)
+            Text(
+                "This app integrates Claude, Gemini and GPT with MailMate's composer to help you write better emails faster."
+            )
+            .multilineTextAlignment(.center)
+            .foregroundStyle(.secondary)
+            .padding(.horizontal, 40)
 
             Spacer()
 
