@@ -20,7 +20,7 @@
 		A100000B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000B /* WelcomeView.swift */; };
 		A100000C /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000C /* ConfigurationView.swift */; };
 		A100000D /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000D /* CompletionView.swift */; };
-		A100000E /* GPTAssistant.mmbundle in Resources */ = {isa = PBXBuildFile; fileRef = A200000E /* GPTAssistant.mmbundle */; };
+		A100000E /* AIAssistant.mmbundle in Resources */ = {isa = PBXBuildFile; fileRef = A200000E /* AIAssistant.mmbundle */; };
 		A100000F /* ThinkingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012 /* ThinkingPanel.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 		A200000B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A200000C /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		A200000D /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
-		A200000E /* GPTAssistant.mmbundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GPTAssistant.mmbundle; sourceTree = "<group>"; };
+		A200000E /* AIAssistant.mmbundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AIAssistant.mmbundle; sourceTree = "<group>"; };
 		A200000F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2000010 /* MailMateAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MailMateAI.entitlements; sourceTree = "<group>"; };
 		A2000011 /* MailMateAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailMateAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,7 +112,7 @@
 		A4000006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A200000E /* GPTAssistant.mmbundle */,
+				A200000E /* AIAssistant.mmbundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A100000E /* GPTAssistant.mmbundle in Resources */,
+				A100000E /* AIAssistant.mmbundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
