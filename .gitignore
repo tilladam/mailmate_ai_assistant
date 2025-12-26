@@ -12,3 +12,5 @@ config.ini
 
 # Worktrees
 .worktrees/
+MailMateAI/MailMateAI.app/Contents/Info.plist
+MailMateAI/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
