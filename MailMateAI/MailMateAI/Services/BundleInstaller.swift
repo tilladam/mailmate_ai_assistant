@@ -42,7 +42,7 @@ struct BundleInstaller {
 
     static func install() throws {
         // Find bundle in app resources
-        guard let sourcePath = Bundle.main.path(forResource: "GPTAssistant", ofType: "mmbundle")
+        guard let sourcePath = Bundle.main.path(forResource: "AIAssistant", ofType: "mmbundle")
         else {
             throw BundleInstallerError.bundleNotFound
         }
